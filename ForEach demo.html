@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>forEach Demo</title>
+</head>
+<body>
+  <h1>Welcome Messages</h1>
+  <div id="messages"></div>
+  <script>
+    const users = [
+      { username: "Tejas", role: "Admin" },
+      { username: "Priya", role: "Editor" },
+      { username: "Rahul", role: "Viewer" }
+    ];
+    const container = document.getElementById("messages");
+    users.forEach(user => {
+      const message = `Welcome ${user.username}! You are logged in as ${user.role}.`;
+      console.log(message);
+      const p = document.createElement("p");
+      p.textContent = message;
+      container.appendChild(p);
+    });
+  </script>
+</body>
+</html>

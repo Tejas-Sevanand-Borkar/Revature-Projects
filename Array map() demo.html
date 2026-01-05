@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Array map() Demo</title>
+</head>
+<body>
+  <h1>Discounted Price List</h1>
+  <ul id="priceList"></ul>
+  <script>
+    const prices = [1000, 2500, 3999, 150, 750];
+    const discountedPrices = prices.map(price => price - (price * 0.10));
+    const list = document.getElementById("priceList");
+    discountedPrices.forEach((price, index) => {
+      const li = document.createElement("li");
+      li.textContent = `Original: ₹${prices[index]} → Discounted: ₹${price.toFixed(2)}`;
+      list.appendChild(li);
+    });
+    console.log("Original Prices:", prices);
+    console.log("Discounted Prices:", discountedPrices);
+  </script>
+</body>
+</html>
