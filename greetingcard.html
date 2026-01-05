@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy New Year Card</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .card {
+      width: min(90vw, 600px);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      background: linear-gradient(135deg, #fef3c7, #fde68a, #fca5a5);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card h1 {
+      font-size: clamp(32px, 6vw, 56px);
+      margin: 0;
+      color: #0f172a;
+      text-shadow: 0 0 12px rgba(255,255,255,0.8);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    .card p {
+      margin-top: 16px;
+      font-size: clamp(16px, 3vw, 22px);
+      color: #111827;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 12px #fcd34d; }
+      to   { text-shadow: 0 0 24px #f87171; }
+    }
+
+    .greet span {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="greet">
+      <span style="background:#f87171; left:10%; top:20%; animation-delay:0s;"></span>
+      <span style="background:#60a5fa; left:30%; top:60%; animation-delay:.5s;"></span>
+      <span style="background:#34d399; left:70%; top:40%; animation-delay:1s;"></span>
+      <span style="background:#fbbf24; left:85%; top:15%; animation-delay:1.5s;"></span>
+    </div>
+    <h1>✨ Happy New Year 2026 ✨</h1>
+    <p>Wishing you joy, success, and endless creativity in the year ahead!</p>
+  </div>
+</body>
+</html>
