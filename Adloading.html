@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ad Loading Demo</title>
+</head>
+<body>
+  <h1>Main Content</h1>
+  <p>This content is rendered immediately when the page loads.</p>
+
+  <div id="ad"></div>
+
+  <script>
+    setTimeout(() => {
+      const adDiv = document.getElementById("ad");
+      adDiv.innerHTML = "<p style='color:blue;'>[Ad Loaded]</p>";
+      console.log("Ad Loaded");
+    }, 0);
+
+    console.log("Main content loaded");
+  </script>
+</body>
+</html>

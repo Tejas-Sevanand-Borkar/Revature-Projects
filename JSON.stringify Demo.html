@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JSON.stringify Demo</title>
+</head>
+<body>
+  <h1>Store User Details in localStorage</h1>
+  <p id="output"></p>
+  <script>
+    const user = {
+      username: "tejas",
+      role: "admin",
+      email: "tejas@example.com"
+    };
+    const userString = JSON.stringify(user);
+    localStorage.setItem("userDetails", userString);
+    const raw = localStorage.getItem("userDetails");
+    const storedUser = raw ? JSON.parse(raw) : null;
+    const output = document.getElementById("output");
+    if (storedUser) {
+      output.textContent = "Stored User: " + storedUser.username + " (" + storedUser.role + ")";
+    } else {
+      output.textContent = "No user stored in localStorage.";
+    }
+    console.log("Stored JSON String:", userString);
+    console.log("Retrieved Object:", storedUser);
+    if (storedUser) console.log("Username:", storedUser.username);
+  </script>
+</body>
+</html>
+
+
