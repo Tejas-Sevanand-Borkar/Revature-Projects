@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Portal</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    .question {
+      margin: 20px 0;
+    }
+    .options label {
+      display: block;
+      margin: 5px 0;
+      padding: 8px;
+      background: #f0f0f0;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .options input {
+      margin-right: 10px;
+    }
+    #nextBtn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #progress {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    #timer {
+      text-align: right;
+      font-weight: bold;
+      color: red;
+    }
+    .progress-bar {
+      width: 100%;
+      background: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
+    .progress-fill {
+      height: 20px;
+      width: 100%;
+      background: #28a745;
+      transition: width 1s linear;
+    }
+    .feedback {
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .correct {
+      background: #d4edda;
+      color: #155724;
+    }
+    .incorrect {
+      background: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h2>Sequential Quiz Portal</h2>
+    <div id="timer">Time Left: <span id="time">120</span> sec</div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+    <div id="quizArea"></div>
+    <button id="nextBtn">Next</button>
+    <div id="progress"></div>
+  </div>
+
+  <script>
+    let questions = [
+      {q: "Which language is used for web styling?", options: ["CSS","HTML","Python"], answer: "CSS"},
+      {q: "Which tag is used for JavaScript?", options: ["&lt;script&gt;","&lt;style&gt;","&lt;link&gt;"], answer: "&lt;script&gt;"},
+      {q: "Who developed jQuery?", options: ["MIT","Google","John Resig"], answer: "John Resig"},
+      {q: "Largest heading in HTML?", options: ["&lt;h1&gt;","&lt;h6&gt;","&lt;p&gt;"], answer: "&lt;h1&gt;"},
+      {q: "Symbol used for jQuery selector?", options: ["$","#","&"], answer: "$"}
+    ];
+
+    let currentIndex = 0;
+    let totalScore = 0;
+    let timeLeft = 120;
+    let timer;
+    let feedbackList = [];
+    function decodeHtml(html) {
+      let txt = document.createElement("textarea");
+      txt.innerHTML = html;
+      return txt.value;
+    }
+
+    function loadQuestion(index){
+      let qObj = questions[index];
+      let html = `<div class="question"><p>${index+1}. ${qObj.q}</p><div class="options">`;
+      qObj.options.forEach(opt=>{
+        html += `<label><input type="radio" name="q${index}" value="${opt}"> ${opt}</label>`;
+      });
+      html += `</div></div>`;
+      $("#quizArea").html(html);
+      resetTimer();
+    }
+
+    function resetTimer(){
+      clearInterval(timer);
+      timeLeft = 120;
+      $("#time").text(timeLeft);
+      $("#progressFill").css("width","100%");
+      timer = setInterval(function(){
+        timeLeft--;
+        $("#time").text(timeLeft);
+        let percent = (timeLeft/120)*100;
+        $("#progressFill").css("width", percent+"%");
+        if(timeLeft <= 0){
+          clearInterval(timer);
+          $("#nextBtn").click();
+        }
+      },1000);
+    }
+
+    $("#nextBtn").click(function(){
+      let selected = $(`input[name=q${currentIndex}]:checked`).val();
+      let decodedSelected = selected ? decodeHtml(selected) : null;
+      let decodedAnswer = decodeHtml(questions[currentIndex].answer);
+
+      if(decodedSelected === decodedAnswer){
+        totalScore++;
+        feedbackList.push(`<div class="feedback correct">Q${currentIndex+1}: Correct ✅</div>`);
+      } else {
+        feedbackList.push(`<div class="feedback incorrect">Q${currentIndex+1}: Incorrect ❌ (Correct Answer: ${decodedAnswer})</div>`);
+      }
+
+      currentIndex++;
+      if(currentIndex < questions.length){
+        loadQuestion(currentIndex);
+      } else {
+        clearInterval(timer);
+        $("#quizArea").html("");
+        $("#nextBtn").hide();
+        $("#progress").html(
+          `<h3>Quiz Finished!</h3>
+           <p>Your Score: ${totalScore} / ${questions.length}</p>
+           ${feedbackList.join("")}`
+        );
+      }
+    });
+    loadQuestion(currentIndex);
+  </script>
+</body>
+</html>
