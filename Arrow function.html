@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Function Declaration and Arrow Function</title>
+</head>
+<body>
+    <p>Function Declaration and Arrow Function Example</p>
+    <script>
+        function calculateGST(amount, rate) {
+        return amount * (rate / 100);
+}
+        console.log("GST:", calculateGST(1000, 18)); 
+        const calculateGSTArrow = (amount, rate) => amount * (rate / 100);
+        console.log("GST:", calculateGSTArrow(1000, 18));
+ 
+    </script>
+
+</body>
+</html>

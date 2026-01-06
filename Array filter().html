@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Filter Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .product {
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+    }
+    .in-stock {
+      color: green;
+      font-weight: bold;
+    }
+    .out-stock {
+      color: red;
+    }
+    button {
+      margin-top: 10px;
+      padding: 6px 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Product List</h2>
+  <div id="productList"></div>
+  <button onclick="showAvailable()">Show Only Available Products</button>
+  <script>
+    const products = [
+      { id: 1, name: "Laptop", inStock: true },
+      { id: 2, name: "Headphones", inStock: false },
+      { id: 3, name: "Keyboard", inStock: true },
+      { id: 4, name: "Mouse", inStock: false }
+    ];
+    function renderProducts(list) {
+      const container = document.getElementById("productList");
+      container.innerHTML = "";
+      list.forEach(product => {
+        const div = document.createElement("div");
+        div.className = "product";
+        div.innerHTML = `
+          ${product.name} - 
+          <span class="${product.inStock ? 'in-stock' : 'out-stock'}">
+            ${product.inStock ? 'Available' : 'Out of Stock'}
+          </span>
+        `;
+        container.appendChild(div);
+      });
+    }
+    renderProducts(products);
+    function showAvailable() {
+      const availableProducts = products.filter(p => p.inStock);
+      renderProducts(availableProducts);
+    }
+  </script>
+</body>
+</html>

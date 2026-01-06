@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cart Total Example</title>
+</head>
+<body>
+  <h2>Shopping Cart</h2>
+  <ul id="cartItems"></ul>
+  <h3 id="cartTotal"></h3>
+
+  <script>
+    const cart = [
+      { name: "Laptop", price: 60000, quantity: 1 },
+      { name: "Headphones", price: 2000, quantity: 2 },
+      { name: "Keyboard", price: 1500, quantity: 1 }
+    ];
+    const cartList = document.getElementById("cartItems");
+    cart.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = `${item.name} - ₹${item.price} x ${item.quantity}`;
+      cartList.appendChild(li);
+    });
+    const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+    document.getElementById("cartTotal").textContent = `Total: ₹${total}`;
+  </script>
+</body>
+</html>
